@@ -71,10 +71,12 @@ trait Sortable
         }
 
         $newOrder = 1;
+        $orderColumnName = $this->determineOrderColumnName();
         foreach($ids as $id)
         {
             $model = self::find($id);
-            $model->order_column = $newOrder++;
+            $orderColumnName = $model->determineOrderColumnName();
+            $model->$orderColumnName = $newOrder++;
             $model->save();
         }
     }
